@@ -1,0 +1,17 @@
+﻿{
+  "message": "custom things",
+  "logins": [
+    {
+      "username": "beer",
+      "password": "123456"
+    },
+    {
+      "username": "cheep",
+      "password": "654321"
+    }
+  ],
+  "random": [ "haha", "hihi", "huhu", "hghg" ],
+  "link": "http://example.com/",
+  "size": 15,
+  "count": 1.2
+}

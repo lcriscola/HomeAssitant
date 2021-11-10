@@ -1,0 +1,28 @@
+{
+  "name": "Amcrest to MQTT",
+  "version": "1",
+  "slug": "amcrest_to_mqtt",
+  "description": "Converts Amcrest evnets (Streamed) to MQTT",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "webui":"[PROTO:option_name]://[HOST]:[PORT:100]/swagger",
+  "ports":{
+	"80/tcp": 100
+  },
+  "options": {
+    "message": "str",
+    "logins": [
+      {
+        "username": "str",
+        "password": "str"
+      }
+    ],
+    "random": [ "match(^\\w*$)" ],
+    "link": "url",
+    "size": "int(5,20)",
+    "count": "float",
+    "not_need": "str?"
+  },
+  "schema": {}
+}
