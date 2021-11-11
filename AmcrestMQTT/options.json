@@ -1,17 +1,13 @@
-﻿{
-  "message": "custom things",
-  "logins": [
+{
+  "mqtt_host": "192.168.1.5",
+  "mqtt_user": "admin",
+  "mqtt_password": "Heud2911",
+  "cameras": [
     {
-      "username": "beer",
-      "password": "123456"
-    },
-    {
-      "username": "cheep",
-      "password": "654321"
+      "host": "192.168.1.107",
+      "password": "Heud2911",
+      "name": "Front Door",
+      "uniqueid": "front_door"
     }
-  ],
-  "random": [ "haha", "hihi", "huhu", "hghg" ],
-  "link": "http://example.com/",
-  "size": 15,
-  "count": 1.2
+  ]
 }

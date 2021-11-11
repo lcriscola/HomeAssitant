@@ -9,7 +9,6 @@ WORKDIR /src
 COPY XmlToJson.csproj .
 RUN dotnet restore "XmlToJson.csproj"
 COPY . .
-WORKDIR "/src"
 RUN dotnet build "XmlToJson.csproj" -c Release -o /app/build
 
 FROM build AS publish

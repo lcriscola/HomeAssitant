@@ -1,28 +1,39 @@
 {
   "name": "Amcrest to MQTT",
-  "version": "1",
+  "version": "3",
   "slug": "amcrest_to_mqtt",
   "description": "Converts Amcrest evnets (Streamed) to MQTT",
-  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "arch": [ "armhf", "armv7", "aarch64", "amd64", "i386" ],
   "startup": "application",
   "boot": "auto",
-  "webui":"[PROTO:option_name]://[HOST]:[PORT:100]/swagger",
-  "ports":{
-	"80/tcp": 100
+  "webui": "http://[HOST]:[PORT:8080]/swagger",
+  "ports": {
+    "80/tcp": 8080
   },
   "options": {
-    "message": "str",
-    "logins": [
+    "mqtt_host": "192.168.1.5",
+    "mqtt_user": "admin",
+    "mqtt_password": "Heud2911",
+    "cameras": [
       {
-        "username": "str",
-        "password": "str"
+        "host": "192.168.1.107",
+        "password": "Heud2911",
+        "name": "Front Door",
+        "uniqueid": "front_door"
       }
-    ],
-    "random": [ "match(^\\w*$)" ],
-    "link": "url",
-    "size": "int(5,20)",
-    "count": "float",
-    "not_need": "str?"
+    ]
   },
-  "schema": {}
+  "schema": {
+    "mqtt_host": "str",
+    "mqtt_user": "str",
+    "mqtt_password": "str",
+    "cameras": [
+      {
+        "host": "str",
+        "password": "str",
+        "name": "str",
+        "uniqueid": "str"
+      }
+    ]
+  }
 }

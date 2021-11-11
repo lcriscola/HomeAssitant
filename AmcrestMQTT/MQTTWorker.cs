@@ -1,24 +1,31 @@
 ﻿using AmcrestMQTT.Models;
 using AmcrestMQTT.Topics;
 
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
+using System;
+using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mqtt;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AmcrestMQTT
 {
     public class MQTTWorker : IHostedService, IDisposable
     {
-        IMqttClient? client;
-        private readonly IOptions<Settings> _options;
+        IMqttClient mqttClient;
+        private readonly Settings _options;
 
         public void Dispose()
         {
         }
 
-        public MQTTWorker(IOptions<Settings> options)
+        public MQTTWorker(Settings options)
         {
             this._options = options;
         }
@@ -34,14 +41,16 @@ namespace AmcrestMQTT
 
         private async Task Connect()
         {
-            client = await MqttClient.CreateAsync(_options.Value.MQQT_Host);
-            await client.ConnectAsync(new MqttClientCredentials("amcrest2mqtt", _options.Value.MQQT_UserName, _options.Value.MQQT_Password));
+            mqttClient = await MqttClient.CreateAsync(_options.MQTT_Host);
+            await mqttClient.ConnectAsync(new MqttClientCredentials("amcrest2mqtt", _options.MQTT_User, _options.MQTT_Password));
         }
 
         private void ConnectToCameras()
         {
+            Console.WriteLine("Setting up cameras ...");
             foreach (var cam in Camera.GetCameras())
             {
+                Console.WriteLine($"\t{cam.Name}");
                 StartCameraThread(cam);
             }
         }
@@ -52,9 +61,9 @@ namespace AmcrestMQTT
             {
                 try
                 {
-                    if (client == null)
+                    if (mqttClient == null)
                     {
-                        Connect();
+                        await Connect();
                     }
                     Camera camera = (Camera)state;
 
@@ -101,8 +110,8 @@ namespace AmcrestMQTT
                 }
                 catch (Exception ex)
                 {
-                    client.Dispose();
-                    client= null;
+                    mqttClient.Dispose();
+                    mqttClient= null;
                     Console.Error.WriteLine(ex.Message);
                 }
 
@@ -112,6 +121,7 @@ namespace AmcrestMQTT
 
         private async Task SendDiscoveryInformationAsync()
         {
+            Console.WriteLine("Sending discovery information ...");
             var sensors = Topics.Sensor.GetSensors();
             foreach (var sensor in sensors)
             {
@@ -127,23 +137,24 @@ namespace AmcrestMQTT
                         state_topic = sensor.GetStateTopic(camera.UniqueId)
                     };
                     var text = System.Text.Json.JsonSerializer.Serialize(data);
-                    await client.PublishAsync(new MqttApplicationMessage(configTopic, Encoding.UTF8.GetBytes(text)), MqttQualityOfService.AtLeastOnce);
+                    await mqttClient.PublishAsync(new MqttApplicationMessage(configTopic, Encoding.UTF8.GetBytes(text)), MqttQualityOfService.AtLeastOnce);
+                    Console.WriteLine($"\t{configTopic}");
                 }
             }
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            await client.DisconnectAsync();
-            client.Dispose();
+            await mqttClient.DisconnectAsync();
+            mqttClient.Dispose();
         }
 
 
         async Task SendStatus(string topic, string status)
         {
             var text =   status ;
-            await client.PublishAsync(new MqttApplicationMessage(topic, Encoding.UTF8.GetBytes(text)), MqttQualityOfService.AtLeastOnce);
-            //Console.Write($"Message sent to {topic} with  {status}");
+            await mqttClient.PublishAsync(new MqttApplicationMessage(topic, Encoding.UTF8.GetBytes(text)), MqttQualityOfService.AtLeastOnce);
+            Console.WriteLine($"\tMessage sent to {topic} with  {status}");
         }
     }
 }

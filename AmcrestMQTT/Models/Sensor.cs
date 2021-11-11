@@ -1,4 +1,6 @@
-﻿namespace AmcrestMQTT.Topics
+﻿using System.Collections.Generic;
+
+namespace AmcrestMQTT.Topics
 {
     public class Sensor
     {

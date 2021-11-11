@@ -2,10 +2,14 @@ using AmcrestMQTT.Models;
 using AmcrestMQTT.Topics;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
+using System;
+using System.Linq;
 using System.Net.Mqtt;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AmcrestMQTT.Controllers
 {
@@ -16,13 +20,13 @@ namespace AmcrestMQTT.Controllers
  
         private readonly ILogger<SimulationController> _logger;
  
-        public SimulationController(ILogger<SimulationController> logger, IOptions<Settings> options)
+        public SimulationController(ILogger<SimulationController> logger, Settings options)
         {
             _logger = logger;
             _options = options;
         }
 
-        private readonly IOptions<Settings> _options;
+        private readonly Settings _options;
 
         [HttpGet()]
         [Route("simulate_on")]
@@ -56,8 +60,8 @@ namespace AmcrestMQTT.Controllers
 
         private async Task SendSensorValue(string cameraId, string eventName, string value)
         {
-            var client = await MqttClient.CreateAsync(_options.Value.MQQT_Host);
-            await client.ConnectAsync(new MqttClientCredentials("amcrest2mqtt", _options.Value.MQQT_UserName, _options.Value.MQQT_Password));
+            var client = await MqttClient.CreateAsync(_options.MQTT_Host);
+            await client.ConnectAsync(new MqttClientCredentials("amcrest2mqtt", _options.MQTT_User, _options.MQTT_Password));
 
 
             var cameras= Camera.GetCameras();
@@ -71,6 +75,7 @@ namespace AmcrestMQTT.Controllers
                 throw new ArgumentNullException($"Sensor hanlding event {eventName} not found");
 
             var topic = sensor.GetStateTopic(cameraId);
+            Console.WriteLine($"{topic} {value}");
             await client.PublishAsync(new MqttApplicationMessage(topic, Encoding.UTF8.GetBytes(value)), MqttQualityOfService.AtLeastOnce);
         }
     }

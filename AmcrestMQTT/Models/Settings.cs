@@ -1,10 +1,13 @@
-﻿namespace AmcrestMQTT.Models
+﻿using System.Text.Json.Serialization;
+
+namespace AmcrestMQTT.Models
 {
     public class Settings
     {
-        public string MQQT_Host { get; set; }
-        public string MQQT_UserName { get; set; }
-        public string MQQT_Password { get; set; }
+        [JsonPropertyName("mqtt_host")]
+        public string MQTT_Host { get; set; }
+        public string MQTT_User { get; set; }
+        public string MQTT_Password { get; set; }
         public CameraSetting[] Cameras { get; set; }
     }
 
