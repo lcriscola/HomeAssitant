@@ -46,10 +46,8 @@ namespace AmcrestMQTT
             var options = System.Text.Json.JsonSerializer.Deserialize<Settings>(optionsText, new System.Text.Json.JsonSerializerOptions() {  PropertyNameCaseInsensitive=true});
 
             services.AddSingleton(options);
+            services.AddTransient<AmcrestToMqttWorker>();
 
-
-
-            SetCameras(options);
             services.AddHostedService<MQTTWorker>();
 
         }
@@ -76,11 +74,7 @@ namespace AmcrestMQTT
 
         }
 
-        void SetCameras(Settings options)
-        {
-            Camera.Set(options);
-
-        }
+       
 
     }
 }

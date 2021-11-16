@@ -20,13 +20,15 @@ namespace AmcrestMQTT.Controllers
  
         private readonly ILogger<SimulationController> _logger;
  
-        public SimulationController(ILogger<SimulationController> logger, Settings options)
+        public SimulationController(ILogger<SimulationController> logger, Settings options, AmcrestToMqttWorker amcrestToMqttWorker)
         {
             _logger = logger;
             _options = options;
+            _amcrestToMqttWorker = amcrestToMqttWorker;
         }
 
         private readonly Settings _options;
+        private readonly AmcrestToMqttWorker _amcrestToMqttWorker;
 
         [HttpGet()]
         [Route("simulate_on")]
@@ -60,23 +62,21 @@ namespace AmcrestMQTT.Controllers
 
         private async Task SendSensorValue(string cameraId, string eventName, string value)
         {
-            var client = await MqttClient.CreateAsync(_options.MQTT_Host);
-            await client.ConnectAsync(new MqttClientCredentials("amcrest2mqtt", _options.MQTT_User, _options.MQTT_Password));
-
-
-            var cameras= Camera.GetCameras();
+            var cameras= _options.Cameras;
             var cam =cameras.FirstOrDefault(x => x.UniqueId == cameraId);
             if (cam==null)
                 throw new ArgumentNullException($"Camera {cameraId} not found");
 
-            var sensors = Sensor.GetSensors();
+            var sensors = _options.Sensors;
             var sensor = sensors.FirstOrDefault(x => x.Code == eventName);
             if (sensor == null)
                 throw new ArgumentNullException($"Sensor hanlding event {eventName} not found");
 
             var topic = sensor.GetStateTopic(cameraId);
             Console.WriteLine($"{topic} {value}");
-            await client.PublishAsync(new MqttApplicationMessage(topic, Encoding.UTF8.GetBytes(value)), MqttQualityOfService.AtLeastOnce);
+
+
+            await _amcrestToMqttWorker.SendStatus(topic, value);
         }
     }
 }

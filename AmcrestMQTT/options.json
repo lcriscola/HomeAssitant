@@ -2,6 +2,7 @@
   "mqtt_host": "192.168.1.5",
   "mqtt_user": "admin",
   "mqtt_password": "Heud2911",
+  "listenToAllEvents": false,
   "cameras": [
     {
       "host": "192.168.1.107",
@@ -9,5 +10,29 @@
       "name": "Front Door",
       "uniqueid": "front_door"
     }
+  ],
+  "sensors": [
+    {
+      "code": "VideoMotion",
+      "deviceClass": "motion",
+      "component": "binary_sensor",
+      "name": "Motion Detected",
+      "uniqueId": "motion_detected_sensor"
+    },
+    {
+      "code": "CrossRegionDetection",
+      "deviceClass": "motion",
+      "component": "binary_sensor",
+      "name": "Human Motion Detected",
+      "uniqueId": "human_motion_detected_sensor"
+    },
+    {
+      "code": "_CallRemoveMask",
+      "deviceClass": "power",
+      "component": "binary_sensor",
+      "name": "Doorbell Pressed",
+      "uniqueId": "doorbell_pressed"
+    }
+
   ]
 }
