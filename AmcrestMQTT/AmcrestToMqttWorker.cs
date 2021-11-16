@@ -37,11 +37,6 @@ namespace AmcrestMQTT
 
         void StartCameraThread(CameraSetting cam)
         {
-            HttpClient httpClient;
-            Thread keepAliveThread = new Thread(async (object state) =>
-            {
-
-            });
             Thread streamRequestThread = new Thread(async (object state) =>
             {
                 while (true)
@@ -102,7 +97,6 @@ namespace AmcrestMQTT
 
             });
             streamRequestThread.Start(cam);
-            keepAliveThread.Start();
         }
 
        public async Task SendStatus(string topic, string status)
