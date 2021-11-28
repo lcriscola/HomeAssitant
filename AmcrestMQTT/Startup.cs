@@ -35,7 +35,8 @@ namespace AmcrestMQTT
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Amcrest to MQTT", Version = "v1" });
-                c.AddServer(new OpenApiServer() {Description="My server", Url="" });
+
+
             });
             services.AddHttpClient();
 
@@ -65,7 +66,14 @@ namespace AmcrestMQTT
                 c.SwaggerEndpoint("swagger/v1/swagger.json", "Amcrest to MQTT v1");
                 c.RoutePrefix = "";
             });
-            app.UseSwagger();
+            app.UseSwagger(c =>
+            {
+                c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                {
+                    swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer
+                 { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}" }  };
+                });
+            });
 
             app.UseRouting();
 
