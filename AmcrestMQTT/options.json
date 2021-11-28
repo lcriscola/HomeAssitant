@@ -9,6 +9,12 @@
       "password": "Heud2911",
       "name": "Front Door",
       "uniqueid": "front_door"
+    },
+	 {
+      "host": "192.168.1.230",
+      "password": "Heud2911",
+      "name": "Garage Camera",
+      "uniqueid": "garage_camera"
     }
   ],
   "sensors": [
@@ -17,14 +23,14 @@
       "deviceClass": "motion",
       "component": "binary_sensor",
       "name": "Motion Detected",
-      "uniqueId": "motion_detected_sensor"
+      "uniqueId": "motion_detected"
     },
     {
       "code": "CrossRegionDetection",
       "deviceClass": "motion",
       "component": "binary_sensor",
       "name": "Human Motion Detected",
-      "uniqueId": "human_motion_detected_sensor"
+      "uniqueId": "human_motion_detected"
     },
     {
       "code": "_CallRemoveMask",

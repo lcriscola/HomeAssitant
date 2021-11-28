@@ -101,12 +101,28 @@ namespace AmcrestMQTT
 
        public async Task SendStatus(string topic, string status)
         {
-            IMqttClient mqttClient = await GetMqttClient();
-            var text = status;
-            await mqttClient.PublishAsync(new MqttApplicationMessage(topic, Encoding.UTF8.GetBytes(text)), MqttQualityOfService.AtLeastOnce);
-            Console.WriteLine($"\tMessage sent to {topic} with  {status}");
-            await mqttClient.DisconnectAsync();
-            mqttClient.Dispose();
+            DateTime started = DateTime.Now;
+            while ((DateTime.Now - started).TotalMinutes <5)
+            {
+                try
+                {
+                    using (IMqttClient mqttClient = await GetMqttClient())
+                    {
+                        var text = status;
+                        await mqttClient.PublishAsync(new MqttApplicationMessage(topic, Encoding.UTF8.GetBytes(text)), MqttQualityOfService.AtLeastOnce);
+                        Console.WriteLine($"\tMessage sent to {topic} with  {status}");
+                        await mqttClient.DisconnectAsync();
+                        return;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    Thread.Sleep(5000);
+                }            
+            }
+
         }
 
         public async Task SendDiscoveryInformationAsync()

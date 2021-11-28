@@ -1,0 +1,11 @@
+{
+  "mqtt_host": "192.168.1.5",
+  "mqtt_user": "admin",
+  "mqtt_password": "Heud2911",
+  "apps": {
+    "f4Launcher": {
+      "file": "C:\\Projects\\FalconBMSTools\\FalconLauncher\\bin\\Release\\FalconLauncher.exe",
+      "arguments": "\"C:\\Falcon BMS 4.35\\User\\Config\\FalconBMSTools-Settings.json\" true"
+    }
+  }
+}
