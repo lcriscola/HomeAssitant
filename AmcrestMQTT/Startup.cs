@@ -73,8 +73,9 @@ namespace AmcrestMQTT
                 c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
                 {
                     var basePath = httpReq.Path.Value.Replace(swaggerPath,"");
+
                     swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer
-                 { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/{basePath}" }  };
+                 { Url = $"" }  };
                 });
             });
 
