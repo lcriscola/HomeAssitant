@@ -1,6 +1,6 @@
 {
     "name":  "Amcrest to MQTT",
-    "version":  30,
+    "version":  31,
     "slug":  "amcrest_to_mqtt",
     "description":  "Converts Amcrest events (Streamed) to MQTT",
     "arch":  [
