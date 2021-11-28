@@ -72,12 +72,12 @@ namespace AmcrestMQTT
             {
                 c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
                 {
-                    var ingressPath = httpReq.Headers[" X-Ingress-Path"].FirstOrDefault();
+                    var ingressPath = httpReq.Headers["X-Ingress-Path"].FirstOrDefault();
                     if (String.IsNullOrEmpty(ingressPath))
                     {
-                        //ingressPath = httpReq.
+                        ingressPath = $"{httpReq.Scheme}://{httpReq.Host}";
                     }
-                    Console.WriteLine("X-Ingress-Path="+httpReq.Headers[" X-Ingress-Path"].FirstOrDefault());
+                    Console.WriteLine("X-Ingress-Path="+httpReq.Headers["X-Ingress-Path"].FirstOrDefault());
 
                     swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer
                  { Url = ingressPath}  };
