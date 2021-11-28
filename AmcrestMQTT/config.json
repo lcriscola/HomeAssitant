@@ -1,13 +1,13 @@
 {
   "name": "Amcrest to MQTT",
-  "version": "14",
+  "version": "16",
   "slug": "amcrest_to_mqtt",
   "description": "Converts Amcrest events (Streamed) to MQTT",
   "arch": [ "armhf", "armv7", "aarch64", "amd64", "i386" ],
   "startup": "application",
   "boot": "auto",
   "ingress":true,
-  "ingress_port":8099,
+  "ingress_port":8080,
   "ports": {
     "8099/tcp": 8080
   },
