@@ -9,12 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmcrestMQTT", "AmcrestMQTT\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{925046BC-33FF-4AEE-A15F-0075014EA99B}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		readme.MD = readme.MD
 		repository.json = repository.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQQTListener", "MQQTListener\MQQTListener.csproj", "{0A19A83A-2E61-45B7-8A90-EA7893373E24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MQTTSender", "MQTTSender\MQTTSender.csproj", "{D408C378-8EC5-49B7-BEB9-99E89A828F4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTSender", "MQTTSender\MQTTSender.csproj", "{D408C378-8EC5-49B7-BEB9-99E89A828F4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
