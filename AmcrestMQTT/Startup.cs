@@ -63,16 +63,17 @@ namespace AmcrestMQTT
             {
                 app.UseDeveloperExceptionPage();
             }
+            var swaggerPath = "swagger/v1/swagger.json";
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("swagger/v1/swagger.json", "Amcrest to MQTT v1");
+                c.SwaggerEndpoint(swaggerPath, "Amcrest to MQTT v1");
                 c.RoutePrefix = "";
             });
             app.UseSwagger(c =>
             {
                 c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
                 {
-                    var basePath = httpReq.PathBase;
+                    var basePath = httpReq.Path.Value.Replace(swaggerPath,"");
                     swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer
                  { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/{basePath}" }  };
                 });
