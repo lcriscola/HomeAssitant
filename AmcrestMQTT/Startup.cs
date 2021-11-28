@@ -57,6 +57,8 @@ namespace AmcrestMQTT
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UsePathBase("/aa/bb");
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -70,8 +72,9 @@ namespace AmcrestMQTT
             {
                 c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
                 {
+                    var basePath = httpReq.PathBase;
                     swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer
-                 { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}" }  };
+                 { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/{basePath}" }  };
                 });
             });
 
