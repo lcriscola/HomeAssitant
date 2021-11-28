@@ -35,6 +35,7 @@ namespace AmcrestMQTT
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Amcrest to MQTT", Version = "v1" });
+                c.AddServer(new OpenApiServer() {Description="My server", Url="" });
             });
             services.AddHttpClient();
 
