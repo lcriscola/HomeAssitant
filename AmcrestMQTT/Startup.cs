@@ -61,7 +61,7 @@ namespace AmcrestMQTT
             }
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Amcrest to MQTT v1");
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "Amcrest to MQTT v1");
                 c.RoutePrefix = "";
             });
             app.UseSwagger();
