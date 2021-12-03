@@ -30,6 +30,24 @@ namespace AmcrestMQTT.Controllers
         private readonly Settings _options;
         private readonly AmcrestToMqttWorker _amcrestToMqttWorker;
 
+
+        [HttpGet()]
+        [Route("discovery")]
+        public async Task<IActionResult> Discovery()
+        {
+            try
+            {
+                await _amcrestToMqttWorker.SendDiscoveryInformationAsync();
+                return this.Ok();
+            }
+            catch (ArgumentNullException ex)
+            {
+                return this.NotFound(ex.Message);
+            }
+        }
+
+
+
         [HttpGet()]
         [Route("simulate_on")]
         public async Task<IActionResult> On(string cameraId, string eventName)
