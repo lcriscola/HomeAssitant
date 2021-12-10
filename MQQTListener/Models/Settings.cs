@@ -15,6 +15,7 @@ public class App
 {
     public string File { get; set; }
     public string Arguments { get; set; }
+    public string StartupDirectory { get; set; }
 }
 
 

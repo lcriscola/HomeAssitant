@@ -2,6 +2,7 @@
 
 using MQQTListener.Models;
 
+using System.Diagnostics;
 using System.Net.Mqtt;
 using System.Reflection;
 using System.Threading;
@@ -30,6 +31,8 @@ namespace MQQTListener
                     {
                         try
                         {
+                            options = Newtonsoft.Json.JsonConvert.DeserializeObject<Settings>(File.ReadAllText("settings.json"));
+
                             var app = System.Text.Encoding.UTF8.GetString(x.Payload);
                             if (options.Apps.TryGetValue(app, out var appFound))
                             {
@@ -37,11 +40,18 @@ namespace MQQTListener
                                 if (x.Topic.EndsWith("start"))
                                 {
 
-                                    Log("Starting " + appFound.File);
+                                    var spi = new ProcessStartInfo();
+                                    spi.FileName = appFound.File;
                                     if (!String.IsNullOrEmpty(appFound.Arguments))
-                                        System.Diagnostics.Process.Start(appFound.File, appFound.Arguments);
+                                        spi.Arguments = appFound.Arguments;
+
+                                    if (string.IsNullOrEmpty(appFound.StartupDirectory))
+                                        spi.WorkingDirectory = System.Environment.CurrentDirectory;
                                     else
-                                        System.Diagnostics.Process.Start(appFound.File);
+                                        spi.WorkingDirectory = appFound.StartupDirectory;
+
+
+                                    Log($"Starting file {spi.FileName} {spi.Arguments} in  {spi.WorkingDirectory}");
                                 }
                                 else
                                 {
@@ -103,13 +113,13 @@ namespace MQQTListener
 
         static void Log(string message)
         {
-            System.Diagnostics.EventLog.WriteEntry("Application", message, System.Diagnostics.EventLogEntryType.Information);
+            File.AppendAllText("log.txt", message);
             Console.WriteLine(message);
             System.Diagnostics.Debug.WriteLine(message);
         }
         static void LogError(string message)
         {
-            System.Diagnostics.EventLog.WriteEntry("Application", message, System.Diagnostics.EventLogEntryType.Error);
+            File.AppendAllText("log.txt", message);
             Console.WriteLine(message);
             System.Diagnostics.Debug.WriteLine("ERROR:"+message);
         }
