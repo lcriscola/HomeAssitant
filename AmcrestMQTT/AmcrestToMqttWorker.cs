@@ -80,7 +80,7 @@ namespace AmcrestMQTT
                                         Console.Write($" **** Unhandled Event ****");
                                     }
 
-                                    string text = $"{DateTime.Now} {amcrest.Code,-20} {amcrest.Action,-20} {amcrest.Index}";
+                                    string text = $"{DateTime.Now} {cam.Name} {amcrest.Code,-20} {amcrest.Action,-20} {amcrest.Index}";
                                     Console.WriteLine(text);
 
                                     var data = System.Text.Encoding.UTF8.GetBytes(text);
