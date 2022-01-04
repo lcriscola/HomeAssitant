@@ -41,6 +41,7 @@ namespace AmcrestMQTT
             {
                 while (true)
                 {
+                    HttpClient httpClient;
                     try
                     {
                         CameraSetting camera = (CameraSetting)state;
@@ -54,10 +55,10 @@ namespace AmcrestMQTT
                             if (_options.ListenToAllEvents)
                                 events = "All";
 
-                            var url = $"http://{camera.Host}/cgi-bin/eventManager.cgi?action=attach&codes=[{events}]";
+                            var url = $"http://{camera.Host}/cgi-bin/eventManager.cgi?action=attach&codes=[{events}]&keepalive=5";
                             var credCache = new CredentialCache();
                             credCache.Add(new Uri(url), "Digest", new NetworkCredential("admin", camera.Password));
-                            var httpClient = new HttpClient(new HttpClientHandler { Credentials = credCache });
+                            httpClient = new HttpClient(new HttpClientHandler { Credentials = credCache });
                             var stream = await httpClient.GetStreamAsync(url);
                             StreamReader sr = new StreamReader(stream);
                             var line = "";
@@ -88,11 +89,19 @@ namespace AmcrestMQTT
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (HttpRequestException ex)
                     {
-                        Console.Error.WriteLine(ex.ToString());
+                        string text = $"{DateTime.Now} ERROR {cam.Name} {ex.Message}";
+                        Console.Error.WriteLine(text);
                         Thread.Sleep(1000);
                     }
+                    catch (Exception ex)
+                    {
+                        string text = $"{DateTime.Now} ERROR {cam.Name} {ex.ToString()}";
+                        Console.Error.WriteLine(text);
+                        Thread.Sleep(1000);
+                    }
+              
                 }
 
             });
