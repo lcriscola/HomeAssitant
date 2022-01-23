@@ -1,25 +1,21 @@
-#include <Stepper.h>
-//#include <AccelStepper.h>
-
+#include "MaddogStepper.h"
 #define STEPS 200
 #define DIRECTION_PIN 3
 #define STEP_PIN 2
 
-Stepper stepper(STEPS, DIRECTION_PIN, STEP_PIN );
-//AccelStepper stepper(STEP_PIN, DIRECTION_PIN);
+MaddogStepper stepper(DIRECTION_PIN, STEP_PIN,300 );
 
 
 void setup() {
 	// put your setup code here, to run once:
 	Serial.begin(115200);
-	stepper.setSpeed(200);
 
 	//stepper.setMaxSpeed(50);
 	//stepper.setSpeed(50);
 }
 
 void loop() {
-	//stepper.run();
+	stepper.Run();
 	// put your main code here, to run repeatedly:
 	//Serial.println(millis());
 	//delay(500);
@@ -28,28 +24,28 @@ void loop() {
 		char c = Serial.read();
 		Serial.println(c);
 		if (c == 'f') {
-			stepper.step(500);
+			stepper.MoveClockwise(800);
 			//stepper.moveTo(500);
 			Serial.println("forward");
 		}
-		if (c == 'F') {
-			for (size_t i = 0; i < 500; i++)
-			{
-				stepper.step(1);
-			}
+		if (c == 's') {
+			stepper.Stop();
+			//stepper.moveTo(500);
+			Serial.println("stopped");
+		}
+
+		if (c == 'l') {
+			stepper.MoveClockwise();
 			//stepper.moveTo(500);
 			Serial.println("Forward");
 		}
-		if (c == 'l') {
-			while(true)
-			{
-				stepper.step(1);
-			}
+		if (c == 'L') {
+			stepper.MoveCounterClockWise();
 			//stepper.moveTo(500);
 			Serial.println("Forward");
 		}
 		if (c == 'b') {
-			stepper.step(-500);
+			stepper.MoveCounterClockWise(800);
 			//stepper.moveTo(-500);
 			Serial.println("Backward");
 		}

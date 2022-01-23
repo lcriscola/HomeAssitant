@@ -111,7 +111,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MaddogStepper.h" />
     <ClInclude Include="__vm\.ProjectorArduino.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MaddogStepper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
