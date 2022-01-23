@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTSender", "MQTTSender\MQ
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RF522", "Tests\RF522\RF522.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FanController", "FanController\FanController.csproj", "{74184F59-EE50-4300-9A48-6AEE0ED8D712}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FanController", "FanController\FanController.csproj", "{74184F59-EE50-4300-9A48-6AEE0ED8D712}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjectorArduino", "ProjectorArduino\ProjectorArduino.vcxproj", "{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +81,14 @@ Global
 		{74184F59-EE50-4300-9A48-6AEE0ED8D712}.Release|Any CPU.Build.0 = Release|Any CPU
 		{74184F59-EE50-4300-9A48-6AEE0ED8D712}.Release|x86.ActiveCfg = Release|Any CPU
 		{74184F59-EE50-4300-9A48-6AEE0ED8D712}.Release|x86.Build.0 = Release|Any CPU
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Debug|Any CPU.Build.0 = Debug|Win32
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Debug|x86.ActiveCfg = Debug|Win32
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Debug|x86.Build.0 = Debug|Win32
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Release|Any CPU.ActiveCfg = Release|Win32
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Release|Any CPU.Build.0 = Release|Win32
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Release|x86.ActiveCfg = Release|Win32
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -53,7 +53,7 @@ namespace MQQTListener
                                     spi.RedirectStandardOutput = true;
                                     spi.RedirectStandardInput = true;
 
-                                    var proc=   Process.Start(spi);
+                                    var proc = Process.Start(spi);
                                     proc.EnableRaisingEvents = true;
                                     proc.ErrorDataReceived += Proc_ErrorDataReceived;
                                     proc.OutputDataReceived += Proc_OutputDataReceived;
@@ -133,15 +133,17 @@ namespace MQQTListener
 
         static void Log(string message)
         {
-            File.AppendAllText("log.txt", message+  Environment.NewLine);
+            message = DateTime.Now.ToString() + " " + message;
+            File.AppendAllText("log.txt", message + Environment.NewLine);
             Console.WriteLine(message);
             System.Diagnostics.Debug.WriteLine(message);
         }
         static void LogError(string message)
         {
+            message = DateTime.Now.ToString() + " " + message;
             File.AppendAllText("log.txt", message + Environment.NewLine);
             Console.WriteLine(message);
-            System.Diagnostics.Debug.WriteLine("ERROR:"+message);
+            System.Diagnostics.Debug.WriteLine("ERROR:" + message);
         }
 
     }
