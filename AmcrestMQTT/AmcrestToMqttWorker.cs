@@ -41,12 +41,11 @@ namespace AmcrestMQTT
             {
                 while (true)
                 {
-                    HttpClient httpClient;
                     try
                     {
                         CameraSetting camera = (CameraSetting)state;
-
-                        using (var http = _httpClientFactory.CreateClient())
+                        Console.WriteLine($"Connecting to {camera.Name}");
+                        //using (var http = _httpClientFactory.CreateClient())
                         {
 
 
@@ -58,7 +57,7 @@ namespace AmcrestMQTT
                             var url = $"http://{camera.Host}/cgi-bin/eventManager.cgi?action=attach&codes=[{events}]&keepalive=5";
                             var credCache = new CredentialCache();
                             credCache.Add(new Uri(url), "Digest", new NetworkCredential("admin", camera.Password));
-                            httpClient = new HttpClient(new HttpClientHandler { Credentials = credCache });
+                            using var httpClient = new HttpClient(new HttpClientHandler { Credentials = credCache });
                             var stream = await httpClient.GetStreamAsync(url);
                             StreamReader sr = new StreamReader(stream);
                             var line = "";
@@ -92,13 +91,13 @@ namespace AmcrestMQTT
                     catch (HttpRequestException ex)
                     {
                         string text = $"{DateTime.Now} ERROR {cam.Name} {ex.Message}";
-                        Console.Error.WriteLine(text);
+                        Console.WriteLine(text);
                         Thread.Sleep(1000);
                     }
                     catch (Exception ex)
                     {
                         string text = $"{DateTime.Now} ERROR {cam.Name} {ex.ToString()}";
-                        Console.Error.WriteLine(text);
+                        Console.WriteLine(text);
                         Thread.Sleep(1000);
                     }
               
