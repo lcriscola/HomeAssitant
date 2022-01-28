@@ -10,10 +10,10 @@ COPY AmcrestMQTT.csproj .
 RUN dotnet restore "AmcrestMQTT.csproj"
 COPY . .
 WORKDIR "/src/"
-RUN dotnet build "AmcrestMQTT.csproj" -c Release -o /app/build
+RUN dotnet build "AmcrestMQTT.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "AmcrestMQTT.csproj" -c Release -o /app/publish
+RUN dotnet publish "AmcrestMQTT.csproj" -c Debug -o /app/publish
 
 FROM base AS final
 EXPOSE 8099
