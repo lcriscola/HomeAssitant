@@ -25,6 +25,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FanController", "FanControl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjectorArduino", "ProjectorArduino\ProjectorArduino.vcxproj", "{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Arduino", "Arduino", "{8F9E63FE-5EF4-46FF-BB86-00E1AE8BF2A5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProtocolFinder", "ProtocolFinder\ProtocolFinder.vcxproj", "{1FECFC97-D65E-4F78-B273-7B781C23B490}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IRTester", "IRTester\IRTester.vcxproj", "{E95ADCF6-3856-438E-9232-0245B644A786}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetDaemon3Apps", "CustomThermostat\NetDaemon3Apps.csproj", "{99E3B071-3C6F-448A-AE98-359158DA71A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,9 +97,38 @@ Global
 		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Release|Any CPU.Build.0 = Release|Win32
 		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Release|x86.ActiveCfg = Release|Win32
 		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741}.Release|x86.Build.0 = Release|Win32
+		{1FECFC97-D65E-4F78-B273-7B781C23B490}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{1FECFC97-D65E-4F78-B273-7B781C23B490}.Debug|Any CPU.Build.0 = Debug|Win32
+		{1FECFC97-D65E-4F78-B273-7B781C23B490}.Debug|x86.ActiveCfg = Debug|Win32
+		{1FECFC97-D65E-4F78-B273-7B781C23B490}.Debug|x86.Build.0 = Debug|Win32
+		{1FECFC97-D65E-4F78-B273-7B781C23B490}.Release|Any CPU.ActiveCfg = Release|Win32
+		{1FECFC97-D65E-4F78-B273-7B781C23B490}.Release|Any CPU.Build.0 = Release|Win32
+		{1FECFC97-D65E-4F78-B273-7B781C23B490}.Release|x86.ActiveCfg = Release|Win32
+		{1FECFC97-D65E-4F78-B273-7B781C23B490}.Release|x86.Build.0 = Release|Win32
+		{E95ADCF6-3856-438E-9232-0245B644A786}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{E95ADCF6-3856-438E-9232-0245B644A786}.Debug|Any CPU.Build.0 = Debug|Win32
+		{E95ADCF6-3856-438E-9232-0245B644A786}.Debug|x86.ActiveCfg = Debug|Win32
+		{E95ADCF6-3856-438E-9232-0245B644A786}.Debug|x86.Build.0 = Debug|Win32
+		{E95ADCF6-3856-438E-9232-0245B644A786}.Release|Any CPU.ActiveCfg = Release|Win32
+		{E95ADCF6-3856-438E-9232-0245B644A786}.Release|Any CPU.Build.0 = Release|Win32
+		{E95ADCF6-3856-438E-9232-0245B644A786}.Release|x86.ActiveCfg = Release|Win32
+		{E95ADCF6-3856-438E-9232-0245B644A786}.Release|x86.Build.0 = Release|Win32
+		{99E3B071-3C6F-448A-AE98-359158DA71A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E3B071-3C6F-448A-AE98-359158DA71A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E3B071-3C6F-448A-AE98-359158DA71A1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{99E3B071-3C6F-448A-AE98-359158DA71A1}.Debug|x86.Build.0 = Debug|Any CPU
+		{99E3B071-3C6F-448A-AE98-359158DA71A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E3B071-3C6F-448A-AE98-359158DA71A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E3B071-3C6F-448A-AE98-359158DA71A1}.Release|x86.ActiveCfg = Release|Any CPU
+		{99E3B071-3C6F-448A-AE98-359158DA71A1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{18BFEA8E-FCE0-4FC9-90E8-7E28FF866741} = {8F9E63FE-5EF4-46FF-BB86-00E1AE8BF2A5}
+		{1FECFC97-D65E-4F78-B273-7B781C23B490} = {8F9E63FE-5EF4-46FF-BB86-00E1AE8BF2A5}
+		{E95ADCF6-3856-438E-9232-0245B644A786} = {8F9E63FE-5EF4-46FF-BB86-00E1AE8BF2A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {458C6490-7735-41B5-AFB0-4CF197DB1EF4}

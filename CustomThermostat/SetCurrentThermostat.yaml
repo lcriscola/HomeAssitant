@@ -1,0 +1,12 @@
+﻿NetDaemon3Apps.SetCurrentThermostatConfig:
+  TempSensors: 
+    - sensorId: sensor.ac_air_temperature 
+      alias: AC Room
+    - sensorId: sensor.lumi_lumi_weather_temperature 
+      alias: Living
+    - sensorId: sensor.lumi_lumi_weather_1cd2d307_temperature 
+      alias: Master Bedroom
+    - sensorId: sensor.lumi_lumi_weather_d5a6d307_temperature 
+      alias: Franco
+    - sensorId: sensor.lumi_lumi_weather_068ee007_temperature 
+      alias: Cami
