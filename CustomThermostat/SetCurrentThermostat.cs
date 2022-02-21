@@ -12,7 +12,7 @@ using NetDaemon.HassModel;
 
 using NetDaemon.Extensions.MqttEntityManager;
 using NetDaemon.Extensions.MqttEntityManager.Models;
-
+using NetDaemon.HassModel.Entities;
 
 namespace NetDaemon3Apps
 {
@@ -41,11 +41,13 @@ namespace NetDaemon3Apps
 
                 ha.Entity(sensor.SensorId)
                     .StateChanges()
-                    .Subscribe(x =>
+                    .Subscribe(async x =>
                     {
                         eventCounter++;
                         var temp = Convert.ToDecimal(x.New.State);
                         temperatures[sensor.SensorId]= temp;
+
+                        await SetState(temp, sensor.Alias, sensor.SensorId);
 
                         _logger.Log(LogLevel.Information, $"#{eventCounter} {sensor.Alias} = {temp} .");
                     });
@@ -85,10 +87,18 @@ namespace NetDaemon3Apps
             });
 
 
-            _ha.Entity(SensorId).CallService("set_state", 88);
-
-
             return;
+        }
+
+
+        private async Task SetState(decimal temperature, string sensorAlias, string sensorId)
+        {
+            var dic = new Dictionary<string, object>();
+            dic["measuredOn"] = DateTime.Now;
+            dic["sensorAlias"] = sensorAlias;
+            dic["sensorId"] = sensorId;
+            await _entityManager.UpdateAsync(SensorId, temperature.ToString("N2"), dic);
+
         }
         const string DEVICE_CLASS_TEMPERATURE  = "temperature";
     }

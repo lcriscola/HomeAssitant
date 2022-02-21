@@ -28,26 +28,16 @@ namespace NetDaemon3Apps
             _logger.Log(LogLevel.Information, $"{nameof(CustomThermostat)} started.");
 
 
-            foreach (var sensor in _config.Value.TempSensors)
-            {
-                _logger.Log(LogLevel.Information, $"Subscribing  to  {sensor.Alias} {sensor.SensorId}");
+            _logger.Log(LogLevel.Information, $"Subscribing  to {_config.Value.SensorId}");
 
-                ha.Entity(sensor.SensorId)
-                    .StateChanges()
-                    .Subscribe(x =>
-                    {
-                        var temp = Convert.ToDecimal(x.New.State);
-                        _logger.Log(LogLevel.Information, $"{sensor.Alias} = {temp} .");
-                        //var dict =x.New.Attributes as Dictionary<string, object>;
+            ha.Entity(_config.Value.SensorId)
+                .StateChanges()
+                .Subscribe(x =>
+                {
+                    var temp = Convert.ToDecimal(x.New.State);
+                    _logger.Log(LogLevel.Information, $"{_config.Value.SensorId} = {temp} .");
+                });
 
-                        //foreach (var item in dict)
-                        //{
-
-                        //    _logger.Log(LogLevel.Information, $"{_config.Value.ThermostatId} {item.Key} = {item.Value}");
-                        //}
-                    });
-
-            }
 
             _logger.Log(LogLevel.Information, $"Subscribing  to  {_config.Value.ThermostatId}.");
             var action = "";
@@ -69,7 +59,7 @@ namespace NetDaemon3Apps
                         {
                             JsonElement json;
                             object obj;
-                            if (dict.TryGetValue("temperature", out  obj ))
+                            if (dict.TryGetValue("temperature", out obj))
                             {
                                 if (obj != null)
                                 {
@@ -107,7 +97,7 @@ namespace NetDaemon3Apps
 
         void DumpObject(object obj)
         {
-            if (obj==null)
+            if (obj == null)
                 _logger.LogInformation($"#{eventCounter} -- NULL --");
 
 

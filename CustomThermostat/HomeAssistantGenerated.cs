@@ -40,8 +40,6 @@ namespace HomeAssistantGenerated
 
 		MediaPlayerEntities MediaPlayer { get; }
 
-		PersistentNotificationEntities PersistentNotification { get; }
-
 		PersonEntities Person { get; }
 
 		RemoteEntities Remote { get; }
@@ -91,7 +89,6 @@ namespace HomeAssistantGenerated
 		public LightEntities Light => new(_haContext);
 		public LockEntities Lock => new(_haContext);
 		public MediaPlayerEntities MediaPlayer => new(_haContext);
-		public PersistentNotificationEntities PersistentNotification => new(_haContext);
 		public PersonEntities Person => new(_haContext);
 		public RemoteEntities Remote => new(_haContext);
 		public SceneEntities Scene => new(_haContext);
@@ -454,8 +451,6 @@ namespace HomeAssistantGenerated
 
 		///<summary>AC</summary>
 		public ClimateEntity Ac => new(_haContext, "climate.ac");
-		///<summary>Upstairs AC</summary>
-		public ClimateEntity UpstairsAc => new(_haContext, "climate.upstairs_ac");
 	}
 
 	public class CoverEntities
@@ -660,6 +655,20 @@ namespace HomeAssistantGenerated
 		public InputBooleanEntity MonIncFrontdoor8 => new(_haContext, "input_boolean.mon_inc_frontdoor_8");
 		///<summary>include (on)/exclude (off)</summary>
 		public InputBooleanEntity MonIncFrontdoor9 => new(_haContext, "input_boolean.mon_inc_frontdoor_9");
+		///<summary>netdaemon_appmodelhelloyamlapp</summary>
+		public InputBooleanEntity NetdaemonAppmodelhelloyamlapp => new(_haContext, "input_boolean.netdaemon_appmodelhelloyamlapp");
+		///<summary>netdaemon_customthermostatcustomthermostat</summary>
+		public InputBooleanEntity NetdaemonCustomthermostatcustomthermostat => new(_haContext, "input_boolean.netdaemon_customthermostatcustomthermostat");
+		///<summary>netdaemon_extensionsschedulingschedulingapp</summary>
+		public InputBooleanEntity NetdaemonExtensionsschedulingschedulingapp => new(_haContext, "input_boolean.netdaemon_extensionsschedulingschedulingapp");
+		///<summary>netdaemon_hassmodelhelloworldapp</summary>
+		public InputBooleanEntity NetdaemonHassmodelhelloworldapp => new(_haContext, "input_boolean.netdaemon_hassmodelhelloworldapp");
+		///<summary>netdaemon_hassmodellightonmovement</summary>
+		public InputBooleanEntity NetdaemonHassmodellightonmovement => new(_haContext, "input_boolean.netdaemon_hassmodellightonmovement");
+		///<summary>netdaemon_netdaemon3appscustomthermostat</summary>
+		public InputBooleanEntity NetdaemonNetdaemon3appscustomthermostat => new(_haContext, "input_boolean.netdaemon_netdaemon3appscustomthermostat");
+		///<summary>netdaemon_netdaemon3appssetcurrentthermostat</summary>
+		public InputBooleanEntity NetdaemonNetdaemon3appssetcurrentthermostat => new(_haContext, "input_boolean.netdaemon_netdaemon3appssetcurrentthermostat");
 		///<summary>Notifications</summary>
 		public InputBooleanEntity NotifyFrontdoor1 => new(_haContext, "input_boolean.notify_frontdoor_1");
 		///<summary>Notifications</summary>
@@ -1389,18 +1398,6 @@ namespace HomeAssistantGenerated
 		public MediaPlayerEntity Xboxonex => new(_haContext, "media_player.xboxonex");
 	}
 
-	public class PersistentNotificationEntities
-	{
-		private readonly IHaContext _haContext;
-		public PersistentNotificationEntities(IHaContext haContext)
-		{
-			_haContext = haContext;
-		}
-
-		///<summary>Login attempt failed</summary>
-		public PersistentNotificationEntity HttpLogin => new(_haContext, "persistent_notification.http_login");
-	}
-
 	public class PersonEntities
 	{
 		private readonly IHaContext _haContext;
@@ -1778,6 +1775,8 @@ namespace HomeAssistantGenerated
 		public SensorEntity RtAc5300A600WanStatus => new(_haContext, "sensor.rt_ac5300_a600_wan_status");
 		///<summary>Scene Capable Switch On/Off: Node Status</summary>
 		public SensorEntity SceneCapableSwitchOnOffNodeStatus5 => new(_haContext, "sensor.scene_capable_switch_on_off_node_status_5");
+		///<summary>Temperature Sensor Current</summary>
+		public SensorEntity TemperatureSensorCurrent => new(_haContext, "sensor.temperature_sensor_current");
 		///<summary>This Device next Alarm</summary>
 		public SensorEntity ThisDeviceNextAlarm => new(_haContext, "sensor.this_device_next_alarm");
 		///<summary>This Device next Reminder</summary>
@@ -2184,17 +2183,6 @@ namespace HomeAssistantGenerated
 		}
 	}
 
-	public record PersistentNotificationEntity : Entity<PersistentNotificationEntity, EntityState<PersistentNotificationAttributes>, PersistentNotificationAttributes>
-	{
-		public PersistentNotificationEntity(IHaContext haContext, string entityId) : base(haContext, entityId)
-		{
-		}
-
-		public PersistentNotificationEntity(Entity entity) : base(entity)
-		{
-		}
-	}
-
 	public record PersonEntity : Entity<PersonEntity, EntityState<PersonAttributes>, PersonAttributes>
 	{
 		public PersonEntity(IHaContext haContext, string entityId) : base(haContext, entityId)
@@ -2487,11 +2475,8 @@ namespace HomeAssistantGenerated
 		[JsonPropertyName("supported_features")]
 		public double? SupportedFeatures { get; init; }
 
-		[JsonPropertyName("target_temp_step")]
-		public double? TargetTempStep { get; init; }
-
 		[JsonPropertyName("temperature")]
-		public double? Temperature { get; init; }
+		public object? Temperature { get; init; }
 	}
 
 	public record CoverAttributes
@@ -2732,18 +2717,6 @@ namespace HomeAssistantGenerated
 
 		[JsonPropertyName("volume_level")]
 		public double? VolumeLevel { get; init; }
-	}
-
-	public record PersistentNotificationAttributes
-	{
-		[JsonPropertyName("friendly_name")]
-		public string? FriendlyName { get; init; }
-
-		[JsonPropertyName("message")]
-		public string? Message { get; init; }
-
-		[JsonPropertyName("title")]
-		public string? Title { get; init; }
 	}
 
 	public record PersonAttributes
@@ -3130,8 +3103,6 @@ namespace HomeAssistantGenerated
 
 		FrontendServices Frontend { get; }
 
-		GenericThermostatServices GenericThermostat { get; }
-
 		GroupServices Group { get; }
 
 		HarmonyServices Harmony { get; }
@@ -3239,7 +3210,6 @@ namespace HomeAssistantGenerated
 		public FanServices Fan => new(_haContext);
 		public FfmpegServices Ffmpeg => new(_haContext);
 		public FrontendServices Frontend => new(_haContext);
-		public GenericThermostatServices GenericThermostat => new(_haContext);
 		public GroupServices Group => new(_haContext);
 		public HarmonyServices Harmony => new(_haContext);
 		public HassioServices Hassio => new(_haContext);
@@ -4746,21 +4716,6 @@ namespace HomeAssistantGenerated
 		///<summary>The mode the theme is for.</summary>
 		[JsonPropertyName("mode")]
 		public string? Mode { get; init; }
-	}
-
-	public class GenericThermostatServices
-	{
-		private readonly IHaContext _haContext;
-		public GenericThermostatServices(IHaContext haContext)
-		{
-			_haContext = haContext;
-		}
-
-		///<summary>Reload all generic_thermostat entities.</summary>
-		public void Reload()
-		{
-			_haContext.CallService("generic_thermostat", "reload", null);
-		}
 	}
 
 	public class GroupServices
