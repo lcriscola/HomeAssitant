@@ -45,6 +45,7 @@
         
     <ItemGroup>
       <Folder Include="apps\HassModel\" />
+      <Folder Include="CustomThermostat\" />
       <Folder Include="NewFolder\" />
     </ItemGroup>
 </Project>
